@@ -14,7 +14,7 @@ addons:
       description: "Covalent: UI Platform based on Angular-Material"
     notification_email: jeremy.smartt@teradata.com
     build_command_prepend: "npm run build:lib"
-    build_command: "--no-command --fs-capture-search deploy/"
+    build_command: "--no-command --fs-capture-search deploy/ --fs-capture-search-exclude-regex \"[/\\]node_modules[/\\]\""
     branch_pattern: coverity_scan
 node_js:
 - '10.15.3'
