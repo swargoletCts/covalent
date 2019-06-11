@@ -3,11 +3,10 @@ sudo: required
 dist: trusty
 env:
   global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "vIPuOFHpO86NMtemc6W2HL8DfayXYeIkWOoRdCnrCbmr0rIHPIdBYVhqIBVwYvb2KzjzwWfYr1zMeZIw/Ttut0CgsO1RrKn1WrBMtO+SSVW8jTfPDOOeiqeH2ea1QftYPE75WCPnvRVfYm+wjLPE5yP5K70jpJfh8qANes/6tYRkm1CBJZAIcAm0gf5/3++ZThcXZcMcv+28gBlb5GHEct7tT5qHqDGar/LiTBwcNGDqRVqr1fiaduBNrdoGqdyeGp5OSQSUZU3YL/ZfZgNixIsBcEyqY64wHoohhEoUJo/+H5WAlUhsbWjcCzIg8gowhDFnFePdSzwq4DdnTMQVwJIo4WC0DGXW4HhSIPAP6LiKwng45teZessVMsVMDvMZAfpA0cuGaV3V1tQ7IRE1nRoQTxZuulkfZ39G3USAqKHIjCqdg40wnXu4ZY7Xk7L49qSYpuiduH3ransNquy4fbOCIvlOkKjmgtrYpy2Y6YWNA2ZZ+iJmqVV8mkluafyYBHA2F1h9hAuHwnMmGmlZBYnJ0Cxv/gacQhjydy3ox3Tr5EKXzS9pfYbxheC8G0xF2YW/U8AwofRzoAx3otWL7yPiIqMD1evZ0lUJzR17xdrrqLYqoJ0HglJHlCqpyZez+w8FBGhUZMJZ1dksqw5W700FUkAbghmlfPvsQVsn0Tg="
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created via the "travis encrypt" command using the project repos public key
+   - secure: "BVSHMDG2ovpL1iZaFLrWcmLuTHMshyWCHBtfyNYpz8ua2WVyqsAX2/2NtFO2DXj+6gzzi51PcBRdeSGc2VOcoM0Hxo9FidlseAOcXJuECWaCc2vWIxr6Tyxrvsyb/JdLHP55am8iad3Ira5K2EWUzCEa0uNKkKeBj6DM1UKsoefSTYvdXV0capibTHJCRows4iEYxfFnNjsum0OBbCNKdo6l7S6YHMarS2lMQU8lUmUEgga5Ll+gJpGJAvcC1m87+oRDjisR4dECXTo5xru6gC/ARlL08vWbS62xrD/LgONG2K2zlZ1vfBQ+KZ7+s6PK5aWusdm6ikfSDSVtyRvf1xk4fB0YyHRFW2b7GV0lNNu+ICS1Rj6Sz87Bcbw1PGs1Reej45Ierg9zLZLQOsHHADSQZXMYMOz/04XjrQKEQfS8ceTn11xzCjVuEcaF3TD7jGAR1eZwov7oiEW2niuJMfNafgBeJQPChNWLcm+fXT7fw7BGsBLusBQLMZBfZfRuXkNaSxLOvhVSaTys/xfDgPEOYQhLQ8X2SYNJ6mjpef0p4xXaa4akFaK0j/DR/zcIrnL12hN1X0UEDeS6HcvygGQjDAz/FnGB2GFn3qIEI8aj1Q+tQdLDATvShT21VWTIYlK6F2g9hS7vLDzbIo5wMqlm/CcpdniPDgecMJofSfU="
 before_install:
-  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-certificates.crt
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 addons:
   coverity_scan:
     project:
