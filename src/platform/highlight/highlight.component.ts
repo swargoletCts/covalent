@@ -15,6 +15,7 @@ export class TdHighlightComponent implements AfterViewInit {
   private _initialized: boolean = false;
 
   private _content: string;
+  private _language: string;
 
   /**
    * content?: string
@@ -28,20 +29,36 @@ export class TdHighlightComponent implements AfterViewInit {
   set content(content: string) {
     this._content = content;
     if (this._initialized) {
-      this._loadContent(this._content);
+      this.refresh();
     }
   }
 
   /**
-   * lang?: string
+   * @deprecated: due to a11y issues reported by pa11y
+   * Please see @Input('codeLang') as its replacement
+   */
+  @Input('lang')
+  set lang(deprecatedLang: string) {
+    this._language = deprecatedLang || this._language;
+    if (this._initialized) {
+      this.refresh();
+    }
+  }
+  /**
+   * codeLang?: string
    *
    * Language of the code content to be parsed as highlighted html.
    * Defaults to `typescript`
    *
    * e.g. `typescript`, `html` , etc.
    */
-  @Input('lang') language: string = 'typescript';
-
+  @Input('codeLang')
+  set codeLang(codeLang: string) {
+    this._language = codeLang || this._language;
+    if (this._initialized) {
+      this.refresh();
+    }
+  }
   /**
    * contentReady?: function
    * Event emitted after the highlight content rendering is finished.
@@ -53,15 +70,16 @@ export class TdHighlightComponent implements AfterViewInit {
               private _domSanitizer: DomSanitizer) {}
 
   ngAfterViewInit(): void {
-    if (!this.language) {
-      throw new Error('Error: language attribute must be defined in TdHighlightComponent.');
-    }
+    this.refresh();
+    this._initialized = true;
+  }
+
+  private refresh(): void {
     if (!this._content) {
       this._loadContent((<HTMLElement>this._elementRef.nativeElement).textContent);
     } else {
       this._loadContent(this._content);
     }
-    this._initialized = true;
   }
   /**
    * General method to parse a string of code into HTML Elements and load them into the container
@@ -113,7 +131,7 @@ export class TdHighlightComponent implements AfterViewInit {
     .replace(/&lt;/gi, '<').replace(/&gt;/gi, '>');  // replace with < and > to render HTML in Angular
 
     // Parse code with highlight.js depending on language
-    let highlightedCode: any = hljs.highlight(this.language, codeToParse, true);
+    let highlightedCode: any = hljs.highlight(this._language, codeToParse, true);
     highlightedCode.value = highlightedCode.value
       .replace(/=<span class="hljs-value">""<\/span>/gi, '')
       .replace('<head>', '')
