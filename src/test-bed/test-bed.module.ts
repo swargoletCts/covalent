@@ -11,6 +11,7 @@ import { TestBedComponent } from './test-bed/test-bed.component';
 import { MainComponent } from './main/main.component';
 
 import { appRoutes, appRoutingProviders } from './test-bed.routes';
+import { TdSkeletonTextModule } from '@covalent/experimental/skeleton-text';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { appRoutes, appRoutingProviders } from './test-bed.routes';
     MatToolbarModule,
     appRoutes,
     /** Experimental Modules */
+    TdSkeletonTextModule,
 
   ], // modules needed to run this module
   providers: [

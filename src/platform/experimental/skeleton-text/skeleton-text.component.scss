@@ -1,0 +1,52 @@
+$light-shade: rgba(250, 250, 250, 0.098);
+$dark-shade: rgba(0, 0, 0, 0.029);
+$animated-width: 130%;
+
+@mixin hw-accel {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@mixin st-base {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.051);
+  position: relative;
+  overflow: hidden;
+  height: 16px;
+  width: 90px;
+}
+
+@mixin st-animation {
+  @include hw-accel();
+  &:after {
+    content: '';
+    height: 100%;
+    width: $animated-width;
+    background: linear-gradient(to right, $light-shade, $dark-shade 45%);
+    display: block;
+    position: absolute;
+    left: -#{$animated-width};
+    animation: loading 1s infinite linear;
+  }
+}
+
+@keyframes loading {
+  0% {
+    left: -#{$animated-width};
+  }
+  100% {
+    left: #{$animated-width};
+  }
+}
+
+.st-animated {
+  @include st-base();
+  @include st-animation();
+}
+
+.st-static {
+  @include st-base();
+}
