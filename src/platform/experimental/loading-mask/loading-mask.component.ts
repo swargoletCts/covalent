@@ -13,5 +13,5 @@ export class TdLoadingMaskComponent {
   @HostBinding('style.height') @Input() height: string = '14px';
 
   // Bound animation class based on Input
-  @HostBinding('class.st-animated') @Input() animated: boolean = true;
+  @HostBinding('class.td-loading-mask-animated') @Input() animated: boolean = true;
 }

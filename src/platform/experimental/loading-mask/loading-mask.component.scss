@@ -10,7 +10,7 @@ $animated-width: 130%;
   transform: translateZ(0);
 }
 
-%st-base {
+%td-lm-base {
   display: block;
   background-color: rgba(0, 0, 0, 0.051);
   position: relative;
@@ -19,7 +19,7 @@ $animated-width: 130%;
   width: 90px;
 }
 
-%st-animation {
+%td-lm-animation {
   @extend %hw-accel;
   &::after {
     content: '';
@@ -50,8 +50,8 @@ $animated-width: 130%;
 }
 
 :host {
-  @extend %st-base;
-  &.st-animated {
-    @extend %st-animation;
+  @extend %td-lm-base;
+  &.td-loading-mask-animated {
+    @extend %td-lm-animation;
   }
 }
