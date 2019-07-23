@@ -7,9 +7,11 @@ import { Component, Input, HostBinding } from '@angular/core';
 })
 export class TdLoadingMaskComponent {
 
+  // Bound style rules based on Input
   @HostBinding('style.borderRadius') @Input() borderRadius: string = '0';
   @HostBinding('style.width') @Input() width: string = '110px';
-  @HostBinding('style.height') @Input() height: string = 'auto';
+  @HostBinding('style.height') @Input() height: string = '14px';
 
+  // Bound animation class based on Input
   @HostBinding('class.st-animated') @Input() animated: boolean = true;
 }
