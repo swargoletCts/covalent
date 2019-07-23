@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('Component:td-skeleton-text', () => {
+describe('Component:td-loading-mask', () => {
 
   it('', () => {
     expect(true).toBeTruthy();

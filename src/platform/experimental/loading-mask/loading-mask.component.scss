@@ -1,8 +1,8 @@
 $light-shade: rgba(250, 250, 250, 0.098);
-$dark-shade: rgba(0, 0, 0, 0.029);
+$dark-shade: rgba(0, 0, 0, 0.057);
 $animated-width: 130%;
 
-@mixin hw-accel {
+%hw-accel {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -10,7 +10,7 @@ $animated-width: 130%;
   transform: translateZ(0);
 }
 
-@mixin st-base {
+%st-base {
   display: block;
   background-color: rgba(0, 0, 0, 0.051);
   position: relative;
@@ -19,9 +19,9 @@ $animated-width: 130%;
   width: 90px;
 }
 
-@mixin st-animation {
-  @include hw-accel();
-  &:after {
+%st-animation {
+  @extend %hw-accel;
+  &::after {
     content: '';
     height: 100%;
     width: $animated-width;
@@ -29,7 +29,14 @@ $animated-width: 130%;
     display: block;
     position: absolute;
     left: -#{$animated-width};
-    animation: loading 1s infinite linear;
+    animation-duration: 1.9s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: loading;
   }
 }
 
@@ -37,16 +44,14 @@ $animated-width: 130%;
   0% {
     left: -#{$animated-width};
   }
-  100% {
+  35%, 100% {
     left: #{$animated-width};
   }
 }
 
-.st-animated {
-  @include st-base();
-  @include st-animation();
-}
-
-.st-static {
-  @include st-base();
+:host {
+  @extend %st-base;
+  &.st-animated {
+    @extend %st-animation;
+  }
 }

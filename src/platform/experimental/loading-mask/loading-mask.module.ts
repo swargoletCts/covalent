@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TdSkeletonTextComponent } from './skeleton-text.component';
+import { TdLoadingMaskComponent } from './loading-mask.component';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   declarations: [
-    TdSkeletonTextComponent,
+    TdLoadingMaskComponent,
   ],
   exports: [
-    TdSkeletonTextComponent,
+    TdLoadingMaskComponent,
   ],
 })
-export class TdSkeletonTextModule {
+export class TdLoadingMaskModule {
 
 }
