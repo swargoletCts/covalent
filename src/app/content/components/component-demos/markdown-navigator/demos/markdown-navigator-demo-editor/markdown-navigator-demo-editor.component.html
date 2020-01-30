@@ -1,0 +1,25 @@
+<div>
+  <mat-radio-group [(ngModel)]="selected" (change)="selectOption()">
+    <mat-radio-button *ngFor="let option of options" [value]="option">
+      {{ option.name }}
+    </mat-radio-button>
+  </mat-radio-group>
+  <td-code-editor
+    flex
+    [language]="'json'"
+    [editorOptions]="{ minimap: { enabled: false } }"
+    [(ngModel)]="input"
+    [style.height.px]="200"
+  ></td-code-editor>
+  <button mat-button class="text-upper" color="primary" (click)="applyInput()">Apply</button>
+  <button mat-button class="text-upper" color="primary" (click)="demoStartAt()">Jump to a place</button>
+</div>
+<div>
+  <td-markdown-navigator
+    [items]="currentTree"
+    [startAt]="startAt"
+    [compareWith]="compareByTitle"
+    [style.height.px]="250"
+  ></td-markdown-navigator>
+</div>
+
