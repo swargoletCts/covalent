@@ -46,6 +46,5 @@ const routes: Routes = setComponentRoutes({
     RouterModule.forChild(routes),
   ],
   exports: [],
-  providers: [],
 })
 export class MarkdownNavigatorDemoModule {}

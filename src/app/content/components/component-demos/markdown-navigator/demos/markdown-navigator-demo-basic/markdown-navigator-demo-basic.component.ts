@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import {
   TdMarkdownNavigatorWindowService,
-  TdMarkdownNavigatorWindowComponent,
+  IMarkdownNavigatorWindowConfig,
   IMarkdownNavigatorItem,
 } from '@covalent/markdown-navigator';
-import { MatDialogRef } from '@angular/material/dialog';
+
+import { singleLevelTree, biLevelTree, multiLevelTree, mdOptions } from './../../markdown-navigator.model';
+
+function prettyJson(items: IMarkdownNavigatorItem[]): string {
+  return JSON.stringify(items, undefined, 4);
+}
 
 @Component({
   selector: 'markdown-navigator-demo-basic',
@@ -13,38 +18,49 @@ import { MatDialogRef } from '@angular/material/dialog';
   preserveWhitespaces: true,
 })
 export class MarkdownNavigatorDemoBasicComponent {
-  windowOpen: boolean = false;
-  ref: MatDialogRef<TdMarkdownNavigatorWindowComponent>;
-  oneItem: IMarkdownNavigatorItem[] = [
-    {
-      url: 'https://github.com/Teradata/covalent/blob/develop/README.md',
-    },
-  ];
-  options: { name: string; value: IMarkdownNavigatorItem[] }[] = [
-    {
-      name: 'One item',
-      value: this.oneItem,
-    },
-  ];
-  selected: { name: string; value: IMarkdownNavigatorItem[] } = this.options[0];
-  currentItems: IMarkdownNavigatorItem[] = this.selected.value;
+  public options: { name: string; value: IMarkdownNavigatorItem[] }[] = mdOptions;
+  public selected: { name: string; value: IMarkdownNavigatorItem[] } = this.options[0];
+  public currentTree: IMarkdownNavigatorItem[] = this.selected.value;
+  public startAt: IMarkdownNavigatorItem;
+  public input: string = prettyJson(this.currentTree);
 
   constructor(private _markdownNavigatorWindowService: TdMarkdownNavigatorWindowService) {}
 
-  openDialog(): void {
-    if (this.windowOpen) {
-      this.closeDialog();
-    }
-    this.ref = this._markdownNavigatorWindowService.open({ items: this.currentItems });
-    this.ref.afterOpened().subscribe(() => {
-      this.windowOpen = true;
-    });
+  public compareByTitle: (o1: IMarkdownNavigatorItem, o2: IMarkdownNavigatorItem) => boolean = (
+    o1: IMarkdownNavigatorItem,
+    o2: IMarkdownNavigatorItem,
+  ): boolean => o1.title === o2.title;
 
-    this.ref.afterClosed().subscribe(() => {
-      this.windowOpen = false;
-    });
+  public get windowConfig(): IMarkdownNavigatorWindowConfig {
+    return { items: this.currentTree, startAt: this.startAt, compareWith: this.compareByTitle };
   }
-  closeDialog(): void {
-    this.ref.close();
+
+  public selectOption(): void {
+    this.startAt = undefined;
+    this.use(this.selected.value);
+  }
+
+  public use(items: IMarkdownNavigatorItem[]): void {
+    this.currentTree = items;
+    this.input = prettyJson(this.currentTree);
+    if (this._markdownNavigatorWindowService.isOpen) {
+      this.openWindow();
+    }
+  }
+
+  public applyInput(): void {
+    this.use(JSON.parse(this.input));
+    this.openWindow();
+  }
+
+  public demoStartAt(): void {
+    this.selected = this.options[0];
+    this.startAt = { title: 'tdLoading' };
+    this.use(JSON.parse(JSON.stringify(this.selected.value)));
+    this.openWindow();
+  }
+
+  public openWindow(): void {
+    this._markdownNavigatorWindowService.open(this.windowConfig);
   }
 }

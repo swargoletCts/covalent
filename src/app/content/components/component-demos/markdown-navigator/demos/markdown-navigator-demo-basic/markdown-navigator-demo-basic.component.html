@@ -1,3 +1,35 @@
-<button mat-raised-button color="primary" (click)="openDialog()">
-  Open Markdown Navigator
-</button>
+<div>
+  <mat-radio-group [(ngModel)]="selected" (change)="selectOption()">
+    <mat-radio-button *ngFor="let option of options" [value]="option">
+      {{ option.name }}
+    </mat-radio-button>
+  </mat-radio-group>
+  <td-code-editor
+    flex
+    [language]="'json'"
+    [editorOptions]="{ minimap: { enabled: false } }"
+    [(ngModel)]="input"
+    [style.height.px]="200"
+  ></td-code-editor>
+</div>
+<div>
+  <td-markdown-navigator
+    [items]="currentTree"
+    [startAt]="startAt"
+    [compareWith]="compareByTitle"
+    [style.height.px]="250"
+  ></td-markdown-navigator>
+</div>
+<mat-divider></mat-divider>
+<div class="pad-top">
+  <h3 class="mat-title">Open this markdown in a draggable dialog</h3>
+  <mat-divider></mat-divider>
+  <div class="pad-top push-bottom">
+    <button mat-raised-button class="text-upper" color="primary" (click)="applyInput()">Apply</button>
+    <span class="mat-hint">Apply this markdown and open in a dialog</span>
+  </div>
+  <div>
+    <button mat-raised-button class="text-upper" color="primary" (click)="demoStartAt()">Jump</button>
+    <span class="mat-hint">Jump to a specific place and open in a dialog</span>
+  </div>
+</div>
