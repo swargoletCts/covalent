@@ -7,12 +7,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { MarkdownNavigatorDemoBasicComponent } from './markdown-navigator-demo-basic/markdown-navigator-demo-basic.component';
+import { MarkdownNavigatorDemoEditorComponent } from './markdown-navigator-demo-editor/markdown-navigator-demo-editor.component';
 import { MarkdownNavigatorDemoComponent } from './markdown-navigator-demo.component';
 import { MarkdownNavigatorDemoRoutingModule } from './markdown-navigator-demo-routing.module';
 import { DemoModule } from '../../../../../components/shared/demo-tools/demo.module';
 
 @NgModule({
-  declarations: [MarkdownNavigatorDemoComponent, MarkdownNavigatorDemoBasicComponent],
+  declarations: [
+    MarkdownNavigatorDemoComponent,
+    MarkdownNavigatorDemoBasicComponent,
+    MarkdownNavigatorDemoEditorComponent,
+  ],
   imports: [
     DemoModule,
     MarkdownNavigatorDemoRoutingModule,
