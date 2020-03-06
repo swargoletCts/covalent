@@ -1,0 +1,5 @@
+[
+  {label: 'latest (v3)', url: '/covalent/latest'},
+  {label: 'v2', url: '/covalent/v2'},
+  {label: 'v1', url: '/covalent/v1'},
+]
